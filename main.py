@@ -1,6 +1,6 @@
-# ----------- File For Reading Data-----------
+# ----------- File For Reading Data -----------
 import readTrainData as Rdata
-# ----------- Python Package -----------
+# ----------- Python Packages -----------
 from collections import Counter
 import numpy as np
 
