@@ -32,17 +32,17 @@ def learn_NB_text():
 def posterior(data: list, labeled_data: list, words: list, categories: list, alpha):
 
     pr_w = {}
-    words_in_cat = [list()] * len(categories)  # List of all words in each category
+    words_in_categories = [list()] * len(categories)  # List of all words in each category
 
     for i in range(len(categories)):  # For every category
         for j in range(len(labeled_data)):
             if categories[i] == labeled_data[j]:  # If the label of the sentence equal to category
-                words_in_cat[i] = words_in_cat[i] + data[j]  # Add the words to the category list
+                words_in_categories[i] = words_in_categories[i] + data[j]  # Add the words to the category list
 
     for i, cat in enumerate(categories):
-        words_count_for_cat = Counter(words_in_cat[i])
-        pr_w[cat] = {word: (words_count_for_cat[words[j]] + alpha) / (len(words_in_cat[i]) + (alpha * len(words))) for j, word in enumerate(words)}
-        pr_w[cat]["unknown_word"] = alpha / (len(words_in_cat[i]) + alpha * len(cat))
+        count_words_in_cat = Counter(words_in_categories[i])
+        pr_w[cat] = {word: (count_words_in_cat[words[j]] + alpha) / (len(words_in_categories[i]) + (alpha * len(words))) for j, word in enumerate(words)}
+        pr_w[cat]["unknown_word"] = alpha / (len(words_in_categories[i]) + alpha * len(cat))
         
     # pr_w = np.zeros((len(categories), len(words)+1)) # +1 for unknow words
     # cat_counts = Counter(labeled_data)
