@@ -94,7 +94,10 @@ def ClassifyNB_text(Pw, P):
 
     for index, sentence in enumerate(texAll):
         label_sentence = lbAll[index]
-        categories_mul = [np.log(P[i]) + sum(np.log(Pw[category][word]) for word in sentence if word in Pw[category]) for i, category in enumerate(cat)]
+        categories_mul = [sum(np.log(Pw[category][word]) for word in sentence if word in Pw[category]) +
+                          sum(np.log(Pw[category]["unknown_word"]) for word in sentence if word not in Pw[category]) +
+                          np.log(P[i])
+                          for i, category in enumerate(cat)]
         max_labels_index = categories_mul.index(max(categories_mul))
         if cat[max_labels_index] == label_sentence:
             suc += 1
